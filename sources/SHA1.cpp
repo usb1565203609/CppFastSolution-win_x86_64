@@ -15,10 +15,10 @@ void SHA1::Sha1Encode
 	/*
 	*常量初始化
 	*/
-	unsigned long k = 0, f = 0;
+	unsigned int k = 0, f = 0;
 	unsigned int temp_ul_text[80];
-	unsigned long temp_A = 0;
-	unsigned long h[] = { 0x67452301,0xefcdab89,0x98badcfe,0x10325476,0xc3d2e1f0 };
+	unsigned int temp_A = 0;
+	unsigned int h[] = { 0x67452301,0xefcdab89,0x98badcfe,0x10325476,0xc3d2e1f0 };
 	/*
 	*开始填充原文
 	*/
@@ -29,7 +29,7 @@ void SHA1::Sha1Encode
 	n_text[len] = 0x80;
 	unsigned char c_lens[8];
 	memset(c_lens, 0x00, 8);
-	unsigned long temp_len = (unsigned long)(len * 8);
+	unsigned int temp_len = (unsigned int)(len * 8);
 	memcpy(c_lens, &temp_len, sizeof(unsigned long));
 	/*
 	*颠倒数据长度存储的端序
@@ -48,12 +48,12 @@ void SHA1::Sha1Encode
 	for (int i = 0; i < n_len; i += 64)
 	{
 		//A=H[0],B=H[1],C=H[2],D=H[3],E=H[4]
-		unsigned long H[5] = { 0,0,0,0,0 };
+		unsigned int H[5] = { 0,0,0,0,0 };
 		unsigned char temp_text[64];
 
 		memset(temp_text, 0x00, 64);
-		memset(temp_ul_text, 0x00, 80*sizeof(unsigned long));
-		memcpy(H, h, 5 * (sizeof(unsigned long)));
+		memset(temp_ul_text, 0x00, 80*sizeof(unsigned int));
+		memcpy(H, h, 5 * (sizeof(unsigned int)));
 		memcpy(temp_text, (n_text + i), 64);
 
 		CharToUlong(temp_text, temp_ul_text);
@@ -95,9 +95,10 @@ void SHA1::Sha1Encode
 	//字符串格式化返回输出结果
 	for (int o = 0; o < 5; o++)
 	{
-		sprintf_s(outData, 41, "%lx", h[o]);
+		sprintf_s(outData, 40, "%08x", h[o]);
 		outData += 8;
 	}
+	outData[40] = '\0';
 }
 
 bool SHA1::Sha1StrValidate
