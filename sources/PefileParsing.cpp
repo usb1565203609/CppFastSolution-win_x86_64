@@ -1,7 +1,7 @@
 /***********************************************Copyright:Pluviophile******************************************/                            
 /**********************************************Email:1565203609@qq.com*****************************************/
 #include "PefileParsing.h"
-//初始化单例模式对象
+
 PefileParsing* PefileParsing::__Inter = nullptr;
 
 PefileParsing::PefileParsing()
